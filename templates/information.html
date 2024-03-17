@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additional Information</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #edf7ff;
+            /* Light blue background color */
+        }
+        
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        h1,
+        h3 {
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Additional Information</h1>
+
+        <!-- Additional Information Form -->
+        <form action="/submit_info" method="post">
+            <div class="form-group">
+                <label for="ageGroup">Age Group:</label>
+                <select class="form-control" id="ageGroup" name="ageGroup" required>
+                <option value="18-25">18-25</option>
+                <option value="26-35">26-35</option>
+                <option value="36-45">36-45</option>
+                <option value="46-55">46-55</option>
+                <option value="46-55">56-65</option>
+                <option value="66-75">66-75</option>
+                <option value="76-85">76-85</option>
+                <option value="86 and above">86 and above</option>
+            </select>
+            </div>
+            <div class="form-group">
+                <label for="appFeedback">How do you like the app?</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="appFeedback" id="feedback1" value="1" required>
+                    <label class="form-check-label" for="feedback1">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="appFeedback" id="feedback2" value="2">
+                    <label class="form-check-label" for="feedback2">2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="appFeedback" id="feedback3" value="3">
+                    <label class="form-check-label" for="feedback3">3</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="appFeedback" id="feedback4" value="4">
+                    <label class="form-check-label" for="feedback4">4</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="appFeedback" id="feedback5" value="5">
+                    <label class="form-check-label" for="feedback5">5</label>
+                </div>
+            </div>    
+            <div class="form-group">
+                <label for="feedback">Any feedback about the survey ?:</label>
+                <textarea class="form-control" id="feedback" name="feedback" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
