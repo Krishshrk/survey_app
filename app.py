@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-import sqlite3
+import psycopg2
 
 app = Flask(__name__)
 
@@ -17,10 +17,14 @@ video_files = ["https://drive.google.com/file/d/1rl7TLaAE9JX0Yu8VeZeQQq2HXwK846j
 
 # SQLite database initialization
 def init_db():
-    conn = sqlite3.connect('survey.db')
+    
+    conn = psycopg2.connect(database="verceldb",  
+                            user="default", 
+                            password="I2xBTqlk9fPD",  
+                            host="ep-black-snow-a4zmdro9-pooler.us-east-1.aws.neon.tech") 
     c = conn.cursor()
     command="""CREATE TABLE IF NOT EXISTS responses (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,"""
+                     id SERIAL PRIMARY KEY,"""
     for i in range(1,11):
         command+=f'''
                     plausibility_video{i} TEXT,
@@ -51,12 +55,15 @@ def submit_survey():
         valence_values = [request.form[f'valenceScale{i}'] for i in range(1, 11)]
         arousal_values = [request.form[f'arousalScale{i}'] for i in range(1, 11)]
         # Save data to SQLite database
-        conn = sqlite3.connect('survey.db')
+        conn = psycopg2.connect(database="verceldb",  
+                            user="default", 
+                            password="I2xBTqlk9fPD",  
+                            host="ep-black-snow-a4zmdro9-pooler.us-east-1.aws.neon.tech")
         c = conn.cursor()
         command=""" Insert into responses ("""
         for i in range(1,11):
             command+=f"""plausibility_video{i}, valence_video{i}, arousal_video{i},"""
-        command=command[:-1]+" ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        command=command[:-1]+" ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         values=list()
         for i in range(10):
             values.append(plausibility_values[i])
@@ -84,9 +91,12 @@ def submit_info():
         feedback = request.form['feedback']
 
         # Save data to SQLite database
-        conn = sqlite3.connect('survey.db')
+        conn = psycopg2.connect(database="verceldb",  
+                            user="default", 
+                            password="I2xBTqlk9fPD",  
+                            host="ep-black-snow-a4zmdro9-pooler.us-east-1.aws.neon.tech")
         c = conn.cursor()
-        c.execute('''UPDATE responses SET age_group=?, app_feedback=?, feedback_comments=? WHERE id=(SELECT MAX(id) FROM responses)''',
+        c.execute('''UPDATE responses SET age_group=%s, app_feedback=%s, feedback_comments=%s WHERE id=(SELECT MAX(id) FROM responses)''',
                 (age_group,app_feedback, feedback))
         conn.commit()
         conn.close()
