@@ -23,7 +23,7 @@ def init_db():
                             password="I2xBTqlk9fPD",  
                             host="ep-black-snow-a4zmdro9-pooler.us-east-1.aws.neon.tech") 
     c = conn.cursor()
-    command="""CREATE TABLE IF NOT EXISTS responses (
+    command="""CREATE TABLE IF NOT EXISTS response_details (
                      id SERIAL PRIMARY KEY,"""
     for i in range(1,11):
         command+=f'''
@@ -32,8 +32,14 @@ def init_db():
                     arousal_video{i} TEXT,
             '''
     command+="""age_group TEXT,
-                app_feedback INTEGER,
-                feedback_comments TEXT )"""
+                gender TEXT,
+                education TEXT,
+                occupation TEXT,
+                responsiveness TEXT,
+                user_experience TEXT,"""
+    for i in range(1,7):
+        command+=f'AQ_{i} TEXT,'
+    command=command[:-1]+")"
     c.execute(command)
     conn.commit()
     conn.close()
@@ -60,7 +66,7 @@ def submit_survey():
                             password="I2xBTqlk9fPD",  
                             host="ep-black-snow-a4zmdro9-pooler.us-east-1.aws.neon.tech")
         c = conn.cursor()
-        command=""" Insert into responses ("""
+        command=""" Insert into response_details ("""
         for i in range(1,11):
             command+=f"""plausibility_video{i}, valence_video{i}, arousal_video{i},"""
         command=command[:-1]+" ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
@@ -86,9 +92,18 @@ def additional_info():
 def submit_info():
     if request.method=="POST":
         # Collect data from the form
-        age_group = request.form['ageGroup']
-        app_feedback=request.form['appFeedback']
-        feedback = request.form['feedback']
+        age_group=request.form['age']
+        gender=request.form['gender']
+        education=request.form['education']
+        occupation=request.form['occupation']
+        responsiveness=request.form['responsiveness']
+        user_experience=request.form['user_experience']
+        aq1 = request.form['plausible_memory']
+        aq2=request.form['arousal_accuracy']
+        aq3 = request.form['valence_accuracy']
+        aq4= request.form['z_score']
+        aq5= request.form['arousing']
+        aq6=request.form['exposure']
 
         # Save data to SQLite database
         conn = psycopg2.connect(database="verceldb",  
@@ -96,8 +111,14 @@ def submit_info():
                             password="I2xBTqlk9fPD",  
                             host="ep-black-snow-a4zmdro9-pooler.us-east-1.aws.neon.tech")
         c = conn.cursor()
-        c.execute('''UPDATE responses SET age_group=%s, app_feedback=%s, feedback_comments=%s WHERE id=(SELECT MAX(id) FROM responses)''',
-                (age_group,app_feedback, feedback))
+
+        c.execute('''UPDATE response_details SET AQ_1=%s, AQ_2=%s,AQ_3=%s,AQ_4=%s,AQ_5=%s,AQ_6=%s WHERE id=(SELECT MAX(id) FROM response_details)''',
+                (aq1,aq2,aq3,aq4,aq5,aq6))
+        conn.commit()
+
+        c.execute('''UPDATE response_details SET age_group=%s, gender=%s, education=%s, occupation=%s, responsiveness=%s,user_experience=%s WHERE id=(SELECT MAX(id ) FROM response_details) ''',
+                    (age_group,gender,education,occupation,responsiveness,user_experience))
+        
         conn.commit()
         conn.close()
 
