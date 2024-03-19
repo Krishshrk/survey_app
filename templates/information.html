@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Additional Information</title>
+    <title>Demographic and Feedback Form</title>
+    <link rel="icon" href="https://previews.123rf.com/images/arcady31/arcady311603/arcady31160300010/53258650-survey-icon.jpg" type="image/x-icon">
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #edf7ff;
-            /* Light blue background color */
+            background-color: #edf7ff; /* Light blue background color */
         }
-        
         .container {
             background-color: #fff;
             border-radius: 8px;
@@ -20,70 +18,172 @@
             padding: 20px;
             margin-top: 30px;
         }
-        
-        h1,
-        h3 {
-            color: #007bff;
+        h1 {
+            color: #007bff; /* Blue header color */
         }
     </style>
 </head>
-
 <body>
 
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Additional Information</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Additional Information and Feedback Form</h1>
 
-        <!-- Additional Information Form -->
-        <form action="/submit_info" method="post">
-            <div class="form-group">
-                <label for="ageGroup">Age Group:</label>
-                <select class="form-control" id="ageGroup" name="ageGroup" required>
-                <option value="18-25">18-25</option>
-                <option value="26-35">26-35</option>
-                <option value="36-45">36-45</option>
-                <option value="46-55">46-55</option>
-                <option value="46-55">56-65</option>
-                <option value="66-75">66-75</option>
-                <option value="76-85">76-85</option>
-                <option value="86 and above">86 and above</option>
+    <form id="surveyForm" action="/submit_info" method="post">
+        <!-- Demographic Questions -->
+        <h2 class="mt-5 mb-3">Demographic questions:</h2>
+        <div class="form-group">
+            <label for="age">1. What is your age?</label>
+            <select class="form-control" id="age" name="age">
+                <option value="18-24">18-24</option>
+                <option value="25-34">25-34</option>
+                <option value="35-44">35-44</option>
+                <option value="45-54">45-54</option>
+                <option value="55-64">55-64</option>
+                <option value="65+">65+</option>
             </select>
-            </div>
-            <div class="form-group">
-                <label for="appFeedback">How do you like the app?</label><br>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="appFeedback" id="feedback1" value="1" required>
-                    <label class="form-check-label" for="feedback1">1</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="appFeedback" id="feedback2" value="2">
-                    <label class="form-check-label" for="feedback2">2</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="appFeedback" id="feedback3" value="3">
-                    <label class="form-check-label" for="feedback3">3</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="appFeedback" id="feedback4" value="4">
-                    <label class="form-check-label" for="feedback4">4</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="appFeedback" id="feedback5" value="5">
-                    <label class="form-check-label" for="feedback5">5</label>
-                </div>
-            </div>    
-            <div class="form-group">
-                <label for="feedback">Any feedback about the survey ?:</label>
-                <textarea class="form-control" id="feedback" name="feedback" rows="4"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+        </div>
+        <div class="form-group">
+            <label for="gender">2. What is your gender?</label>
+            <select class="form-control" id="gender" name="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="education">3. What is your highest level of education?</label>
+            <select class="form-control" id="education" name="education">
+                <option value="High school or equivalent">High school or equivalent</option>
+                <option value="Bachelor's degree">Bachelor's degree</option>
+                <option value="Master's degree">Master's degree</option>
+                <option value="Doctoral degree">Doctoral degree</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="occupation">4. What is your occupation?</label>
+            <select class="form-control" id="occupation" name="occupation">
+                <option value="Student">Student</option>
+                <option value="Employed (full-time)">Employed (full-time)</option>
+                <option value="Employed (part-time)">Employed (part-time)</option>
+                <option value="Self-employed">Self-employed</option>
+                <option value="Unemployed">Unemployed</option>
+                <option value="Retired">Retired</option>
+            </select>
+        </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- Website usability and experience questions -->
+        <h2 class="mt-5 mb-3">Website usability and experience questions:</h2>
+        <div class="form-group">
+            <label for="responsiveness">1. How would you rate responsiveness of the web application?</label>
+            <select class="form-control" id="responsiveness" name="responsiveness">
+                <option value="Very good">Very good</option>
+                <option value="Good">Good</option>
+                <option value="Neutral">Neutral</option>
+                <option value="Bad">Bad</option>
+                <option value="Very bad">Very bad</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="user_experience">2. How would you rate the overall user experience of the web application?</label>
+            <select class="form-control" id="user_experience" name="user_experience">
+                <option value="Excellent">Excellent</option>
+                <option value="Good">Good</option>
+                <option value="Average">Average</option>
+                <option value="Poor">Poor</option>
+                <option value="Very poor">Very poor</option>
+            </select>
+        </div>
+
+        <!-- Analysis and Hypothesis Questions -->
+        <h2 class="mt-5 mb-3">Analysis and Hypothesis Questions:</h2>
+        <div class="form-group">
+            <label for="plausible_memory">1. Do you think highly plausible videos are more likely to fabricate false memories compared to implausible videos?</label>
+            <select class="form-control" id="plausible_memory" name="plausible_memory">
+                <option value="Strongly agree">Strongly agree</option>
+                <option value="Agree">Agree</option>
+                <option value="Neutral">Neutral</option>
+                <option value="Disagree">Disagree</option>
+                <option value="Strongly disagree">Strongly disagree</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="arousal_accuracy">2. How do you think the level of arousal (excitement or calmness) induced by the videos affects the accuracy of memory recall?</label>
+            <select class="form-control" id="arousal_accuracy" name="arousal_accuracy">
+                <option value="Greatly improves accuracy">Greatly improves accuracy</option>
+                <option value="Somewhat improves accuracy">Somewhat improves accuracy</option>
+                <option value="No effect">No effect</option>
+                <option value="Somewhat reduces accuracy">Somewhat reduces accuracy</option>
+                <option value="Greatly reduces accuracy">Greatly reduces accuracy</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="valence_accuracy">3. Do you believe that videos with a more positive valence (pleasant or unpleasant) are more likely to create false memories?</label>
+            <select class="form-control" id="valence_accuracy" name="valence_accuracy">
+                <option value="Strongly agree">Strongly agree</option>
+                <option value="Agree">Agree</option>
+                <option value="Neutral">Neutral</option>
+                <option value="Disagree">Disagree</option>
+                <option value="Strongly disagree">Strongly disagree</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="z_score">4. Do you think the use of z-score analysis is an effective method for identifying videos with distinct valence and arousal levels for potential exclusion from the stimuli set?</label>
+            <select class="form-control" id="z_score" name="z_score">
+                <option value="Extremely effective">Extremely effective</option>
+                <option value="Very effective">Very effective</option>
+                <option value="Moderately effective">Moderately effective</option>
+                <option value="Slightly effective">Slightly effective</option>
+                <option value="Not effective at all">Not effective at all</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="arousing">5. How likely do you think it is that viewing highly arousing videos (e.g., intense action or emotional scenes) would lead to the formation of false memories?</label>
+            <select class="form-control" id="arousing" name="arousing">
+                <option value="Very likely">Very likely</option>
+                <option value="Likely">Likely</option>
+                <option value="Neutral">Neutral</option>
+                <option value="Unlikely">Unlikely</option>
+                <option value="Very unlikely">Very unlikely</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="exposure">6. Do you believe that the duration of exposure to real or fake videos has an impact on the plausibility of the videos and the likelihood of forming false memories?</label>
+            <select class="form-control" id="exposure" name="exposure">
+                <option value="Strongly agree">Strongly agree</option>
+                <option value="Agree">Agree</option>
+                <option value="Neutral">Neutral</option>
+                <option value="Disagree">Disagree</option>
+                <option value="Strongly disagree">Strongly disagree</option>
+            </select>
+        </div>
+       
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    // Add event listener for form submission
+    document.getElementById('surveyForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Display popup
+        alert('Submitting your responses...');
+        
+        setTimeout(function() {
+            document.getElementById('surveyForm').submit();
+        }, 1000); //delay as needed
+    });
+</script>
 
 </body>
-
 </html>
